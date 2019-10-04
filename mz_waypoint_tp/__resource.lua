@@ -24,3 +24,7 @@ if not, see <http://www.gnu.org/licenses/>.
 
 resource_manifest_version '44febabe-d386-4d18-afbe-5e627f4af937'
 client_script 'mz_waypoint_tp.net.dll';
+
+--Config:
+savetp_cmd 'dosavetp'
+tp_cm 'dotp'

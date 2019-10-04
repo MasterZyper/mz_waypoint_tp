@@ -15,12 +15,12 @@ namespace mz_waypoint_tp
         public MZWaypointTp()
         {
             Tick += TpJob;
-            API.RegisterCommand("SAVETP", new Action<int, List<object>, string>(async (player, value, raw) =>
+            API.RegisterCommand(ReadInputAsString("savetp_cmd"), new Action<int, List<object>, string>(async (player, value, raw) =>
             {
                 new_tp_job = 1;
                 await Delay(1);
             }), false);
-            API.RegisterCommand("TP", new Action<int, List<object>, string>(async (player, value, raw) =>
+            API.RegisterCommand(ReadInputAsString("tp_cmd"), new Action<int, List<object>, string>(async (player, value, raw) =>
             {
                 new_tp_job = 2;
                 await Delay(1);
@@ -29,7 +29,7 @@ namespace mz_waypoint_tp
 
         private async Task TpJob()
         {
-            Debug.Write($"Z:{World.GetGroundHeight(Game.PlayerPed.Position)} Z2: {World.GetNextPositionOnSidewalk(Game.PlayerPed.Position).Z}");
+            Debug.Write($"Z:{World.GetGroundHeight(Game.PlayerPed.Position)} Z2: {World.GetNextPositionOnSidewalk(Game.PlayerPed.Position).Z}\n");
             Blip waypoint = World.GetWaypointBlip();
             if (waypoint != null)
             {
@@ -117,7 +117,7 @@ namespace mz_waypoint_tp
                 int trys = 0;
                 while (targetpos.Z == 0 && trys < 120)
                 {
-                    Debug.Write("Warte auf Boden" + trys);
+                    //Wait for kolission
                     trys++;
                     targetpos.Z = World.GetGroundHeight(targetpos);
                     await Delay(1);
@@ -158,6 +158,10 @@ namespace mz_waypoint_tp
 
             }
             waypoint.Position = Game.PlayerPed.Position;
+        }      
+        private string ReadInputAsString(string data_field)
+        {
+            return API.GetResourceMetadata(API.GetCurrentResourceName(), data_field, 0);
         }
     }
 }
