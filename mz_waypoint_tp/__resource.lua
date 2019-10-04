@@ -1,6 +1,7 @@
 --[[
+mz-waypoint_tp teleports the Player to the current Waypoint. 
 
-Copyright (C) 27.08.2019 MasterZyper 🐦
+Copyright (C) 04.10.2019 MasterZyper 🐦
 Contact: masterzyper@reloaded-server.de
 You like to get a FiveM-Server? 
 Visit ZapHosting*: https://zap-hosting.com/a/17444fc14f5749d607b4ca949eaf305ed50c0837
