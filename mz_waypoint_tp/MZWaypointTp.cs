@@ -50,7 +50,6 @@ namespace mz_waypoint_tp
 
         private async Task TpJob()
         {
-            Debug.Write($"Z:{World.GetGroundHeight(Game.PlayerPed.Position)} Z2: {World.GetNextPositionOnSidewalk(Game.PlayerPed.Position).Z}\n");
             Blip waypoint = World.GetWaypointBlip();
             if (waypoint != null)
             {
@@ -153,7 +152,6 @@ namespace mz_waypoint_tp
                 while (targetpos.Z == 0 && trys < 120)
                 {
                     trys++;
-                    Debug.Write("Warte auf Fußweg");
                     targetpos = World.GetNextPositionOnSidewalk(targetpos);
                     API.GetSafeCoordForPed(
                          Game.PlayerPed.Position.X,
@@ -162,7 +160,6 @@ namespace mz_waypoint_tp
                     await Delay(1);
                 }
                 Game.PlayerPed.Position = targetpos;
-
                 while (!API.HasCollisionLoadedAroundEntity(Game.PlayerPed.Handle) && trys < 300)
                 {
                     //Warten auf Kollission
@@ -176,7 +173,6 @@ namespace mz_waypoint_tp
                     //Warten auf Wasser
                     Game.PlayerPed.Position = new Vector3(Game.PlayerPed.Position.X, Game.PlayerPed.Position.Y, water_height + 5);
                 }
-
             }
             waypoint.Position = Game.PlayerPed.Position;
         }      
